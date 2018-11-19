@@ -1,28 +1,43 @@
 function WordProblem(question) {
   this.question = question;
+  this.numbers = this.question.match(/-?\d+/g).map(n => parseInt(n));
+  this.operators = {
+    "plus": '+',
+    "minus": '-',
+    "multiplied by": "*",
+    "divided by": "/",
+  };
+  // this.questionArray = this.question.split(" ");
 
   this.answer = () => {
-    let result = this.question.match(/-?\d+/g).map(n => parseInt(n));
+    if(question.includes("plus") && question.includes("minus") && this.orderOfWords("plus", "minus")) {
+      return (this.numbers[0] + this.numbers[1]) - this.numbers[2];
+    }
 
-    if(question.includes("plus") && question.includes("minus")) {
-      return (result[0] + result[1]) - result[2];
+    if(question.includes("minus") && question.includes("plus") && this.orderOfWords("minus", "plus")) {
+      return (this.numbers[0] - this.numbers[1]) + this.numbers[2];
     }
 
     if(question.includes("plus")) {
-      return result.reduce((a, b) => a + b);
+      return this.numbers.reduce((a, b) => a + b);
     }
 
     if(question.includes("minus")) {
-      return result.reduce((a, b) => a - b);
+      return this.numbers.reduce((a, b) => a - b);
     }
 
     if(question.includes("multiplied")) {
-      return result.reduce((a, b) => a * b);
+      return this.numbers.reduce((a, b) => a * b);
     }
 
     if(question.includes("divided")) {
-      return result.reduce((a, b) => a / b);
+      return this.numbers.reduce((a, b) => a / b);
     }
+  }
+
+  this.orderOfWords = (firstWord, secondWord) => {
+    let questionArray = this.question.split(" ");
+    return questionArray.indexOf(firstWord) < questionArray.indexOf(secondWord);
   }
 }
 
