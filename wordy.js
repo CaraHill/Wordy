@@ -7,15 +7,22 @@ function WordProblem(question) {
     "multiplied by": "*",
     "divided by": "/",
   };
-  // this.questionArray = this.question.split(" ");
 
   this.answer = () => {
+    if(this.numbers.length <= 1) {
+      throw new ArgumentError();
+    }
+
     if(question.includes("plus") && question.includes("minus") && this.orderOfWords("plus", "minus")) {
       return (this.numbers[0] + this.numbers[1]) - this.numbers[2];
     }
 
     if(question.includes("minus") && question.includes("plus") && this.orderOfWords("minus", "plus")) {
       return (this.numbers[0] - this.numbers[1]) + this.numbers[2];
+    }
+
+    if(question.includes("plus") && question.includes("multiplied") && this.orderOfWords("plus", "multiplied")) {
+      return (this.numbers[0] + this.numbers[1]) * this.numbers[2];
     }
 
     if(question.includes("plus")) {
@@ -41,8 +48,6 @@ function WordProblem(question) {
   }
 }
 
-function ArgumentError() {
-
-}
+function ArgumentError() {}
 
 export { WordProblem, ArgumentError }

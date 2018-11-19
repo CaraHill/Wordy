@@ -56,22 +56,22 @@ describe('Word Problem', () => {
     expect(new WordProblem(question).answer()).toEqual(14);
   });
 
-  xtest('multiply twice', () => {
+  test('multiply twice', () => {
     const question = 'What is 2 multiplied by -2 multiplied by 3?';
     expect(new WordProblem(question).answer()).toEqual(-12);
   });
 
-  xtest('add then multiply', () => {
+  test('add then multiply', () => {
     const question = 'What is -3 plus 7 multiplied by -2?';
     expect(new WordProblem(question).answer()).toEqual(-8);
   });
 
-  xtest('divide twice', () => {
+  test('divide twice', () => {
     const question = 'What is -12 divided by 2 divided by -3?';
     expect(new WordProblem(question).answer()).toEqual(2);
   });
 
-  xtest('too advanced', () => {
+  test('too advanced', () => {
     const question = 'What is 53 cubed?';
     const problem = new WordProblem(question);
 
