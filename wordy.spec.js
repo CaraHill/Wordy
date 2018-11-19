@@ -78,7 +78,7 @@ describe('Word Problem', () => {
     expect(problem.answer.bind(problem)).toThrow(new ArgumentError());
   });
 
-  xtest('irrelevant', () => {
+  test('irrelevant', () => {
     const question = 'Who is the president of the United States?';
     const problem = new WordProblem(question);
 

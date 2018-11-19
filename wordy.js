@@ -1,6 +1,14 @@
 function WordProblem(question) {
   this.question = question;
-  this.numbers = this.question.match(/-?\d+/g).map(n => parseInt(n));
+  this.numbers = (() => {
+    let numberArray = this.question.match(/-?\d+/g)
+    if(numberArray == null) {
+      return numberArray
+    } else {
+      return numberArray.map(n => parseInt(n));
+    }
+  })()
+
   this.operators = {
     "plus": '+',
     "minus": '-',
@@ -9,7 +17,7 @@ function WordProblem(question) {
   };
 
   this.answer = () => {
-    if(this.numbers.length <= 1) {
+    if(this.numbers == null || this.numbers.length == 1) {
       throw new ArgumentError();
     }
 
@@ -49,5 +57,6 @@ function WordProblem(question) {
 }
 
 function ArgumentError() {}
+ArgumentError.prototype = Error.prototype;
 
 export { WordProblem, ArgumentError }
