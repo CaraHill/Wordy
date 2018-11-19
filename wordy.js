@@ -1,59 +1,35 @@
 function WordProblem(question) {
   this.question = question;
-  this.numbers = (() => {
+  this.findNumbers = () => {
     let numberArray = this.question.match(/-?\d+/g)
     if(numberArray == null) {
       return numberArray
     } else {
       return numberArray.map(n => parseInt(n));
     }
-  })()
+  }
+  this.numbers = this.findNumbers();
 
-  this.operators = {
-    "plus": '+',
-    "minus": '-',
-    "multiplied by": "*",
-    "divided by": "/",
-  };
+  this.mathematize = () => {
+    return this.question
+      .replace("What is ", "")
+      .replace("?", "")
+      .replace(/plus/g, "+")
+      .replace(/minus/g, "-")
+      .replace(/multiplied by/g, "*")
+      .replace(/divided by/g, "/");
+  }
 
   this.answer = () => {
     if(this.numbers == null || this.numbers.length == 1) {
       throw new ArgumentError();
     }
-
-    if(question.includes("plus") && question.includes("minus") && this.orderOfWords("plus", "minus")) {
-      return (this.numbers[0] + this.numbers[1]) - this.numbers[2];
-    }
-
-    if(question.includes("minus") && question.includes("plus") && this.orderOfWords("minus", "plus")) {
-      return (this.numbers[0] - this.numbers[1]) + this.numbers[2];
-    }
-
-    if(question.includes("plus") && question.includes("multiplied") && this.orderOfWords("plus", "multiplied")) {
-      return (this.numbers[0] + this.numbers[1]) * this.numbers[2];
-    }
-
-    if(question.includes("plus")) {
-      return this.numbers.reduce((a, b) => a + b);
-    }
-
-    if(question.includes("minus")) {
-      return this.numbers.reduce((a, b) => a - b);
-    }
-
-    if(question.includes("multiplied")) {
-      return this.numbers.reduce((a, b) => a * b);
-    }
-
-    if(question.includes("divided")) {
-      return this.numbers.reduce((a, b) => a / b);
-    }
+    return eval(this.mathematize());
   }
 
-  this.orderOfWords = (firstWord, secondWord) => {
-    let questionArray = this.question.split(" ");
-    return questionArray.indexOf(firstWord) < questionArray.indexOf(secondWord);
-  }
+  // In answer, check the result of mathematize - if more than 2 integers in the string
+  // split after the 2nd number, eval the first array, join result with second array,
+  // eval for final result
 }
 
 function ArgumentError() {}
