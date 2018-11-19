@@ -16,22 +16,22 @@ describe('Word Problem', () => {
     expect(new WordProblem(question).answer()).toEqual(-11);
   });
 
-  xtest('add more digits', () => {
+  test('add more digits', () => {
     const question = 'What is 123 plus 45678?';
     expect(new WordProblem(question).answer()).toEqual(45801);
   });
 
-  xtest('subtract', () => {
+  test('subtract', () => {
     const question = 'What is 4 minus -12?';
     expect(new WordProblem(question).answer()).toEqual(16);
   });
 
-  xtest('multiply', () => {
+  test('multiply', () => {
     const question = 'What is -3 multiplied by 25?';
     expect(new WordProblem(question).answer()).toEqual(-75);
   });
 
-  xtest('divide', () => {
+  test('divide', () => {
     const question = 'What is 33 divided by -3?';
     expect(new WordProblem(question).answer()).toEqual(-11);
   });
