@@ -11,7 +11,7 @@ describe('Word Problem', () => {
     expect(new WordProblem(question).answer()).toEqual(55);
   });
 
-  xtest('add negative numbers', () => {
+  test('add negative numbers', () => {
     const question = 'What is -1 plus -10?';
     expect(new WordProblem(question).answer()).toEqual(-11);
   });
