@@ -2,7 +2,7 @@ function WordProblem(question) {
   this.question = question;
   this.findNumbers = () => {
     let numberArray = this.question.match(/-?\d+/g)
-    if(numberArray == null) {
+    if(numberArray === null) {
       return numberArray
     } else {
       return numberArray.map(n => parseInt(n));
@@ -21,15 +21,21 @@ function WordProblem(question) {
   }
 
   this.answer = () => {
-    if(this.numbers == null || this.numbers.length == 1) {
+    if(this.numbers === null || this.numbers.length === 1) {
       throw new ArgumentError();
     }
+
+    if(question.includes("plus") && question.includes("multiplied") && this.orderOfWords("plus", "multiplied")) {
+      return (this.numbers[0] + this.numbers[1]) * this.numbers[2];
+    }
+
     return eval(this.mathematize());
   }
 
-  // In answer, check the result of mathematize - if more than 2 integers in the string
-  // split after the 2nd number, eval the first array, join result with second array,
-  // eval for final result
+  this.orderOfWords = (firstWord, secondWord) => {
+    let questionArray = this.question.split(" ");
+    return questionArray.indexOf(firstWord) < questionArray.indexOf(secondWord);
+  }
 }
 
 function ArgumentError() {}
